@@ -4,7 +4,7 @@ import requests
 
 
 class UploadVideoMixin(object):
-    """Handle uploading a new video to the Vimeo API."""
+    """Handle uploading a new video to the ArvanCloud API."""
     CHUNK_SIZE = 256000
 
     def upload(self, filename, **kwargs):
@@ -22,7 +22,7 @@ class UploadVideoMixin(object):
                 f,
                 TUS_ENDPOINT,
                 headers=HEADERS,
-                chunk_size=self.CHUNK_SIZE, # file_name='xxx.mp4',
+                chunk_size=self.CHUNK_SIZE,  # file_name='xxx.mp4',
                 metadata={'filename': 'video.mp4', 'filetype': 'video/mp4'}
             )
         print(x)
