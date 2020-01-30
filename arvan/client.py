@@ -2,9 +2,10 @@ from __future__ import absolute_import
 from functools import wraps
 import requests
 from upload import UploadMixin
+from get import GetMixin
 
 
-class ArvanClient(UploadMixin):
+class ArvanClient(UploadMixin, GetMixin):
     """
     Base Client for Arvan Cloud API
     Api Documentation can be found here:
