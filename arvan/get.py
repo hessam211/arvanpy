@@ -3,7 +3,7 @@ import requests
 
 
 class GetVideoMixin(object):
-    """Handle uploading a new temporary file to the ArvanCloud API."""
+    """Getting the data for a specific video ArvanCloud API."""
 
     def get_video(self, video_id):
         """

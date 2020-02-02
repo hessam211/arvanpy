@@ -25,7 +25,6 @@ class UploadFileMixin(object):
                 chunk_size=self.CHUNK_SIZE,  # file_name='xxx.mp4',
                 metadata={'filename': 'video.mp4', 'filetype': 'video/mp4'}
             )
-        print(x)
         return x
 
 
@@ -38,11 +37,9 @@ class UploadVideoMixin(object):
         file_url = self.upload_file(filename)
         file_id = file_url[file_url.rfind('/') + 1:]
         data = kwargs['data'] if 'data' in kwargs else {}
-        data = {
-            "title": title,
-            "file_id": file_id,
-            "convert_mode": convert_mode
-        }
+        data["title"] = title
+        data["file_id"] = file_id
+        data["convert_mode"] = convert_mode
         r = requests.post(url=TUS_ENDPOINT, headers=HEADERS, data=data)
         return r
 
