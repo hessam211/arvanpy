@@ -14,14 +14,14 @@ class UploadFileMixin(object):
         'https://napi.arvancloud.com/vod/2.0/channels/{channel_id}/files'
         Args:
         """
-        TUS_ENDPOINT = 'https://napi.arvancloud.com/vod/2.0/channels/' + self.channel + '/files'
-        HEADERS = {'Authorization': self.token}
+        tus_endpoint = 'https://napi.arvancloud.com/vod/2.0/channels/' + self.channel + '/files'
+        header = {'Authorization': self.token}
 
         with open(filename, 'rb') as f:
             x = arvantus.upload(
                 f,
-                TUS_ENDPOINT,
-                headers=HEADERS,
+                tus_endpoint,
+                headers=header,
                 chunk_size=self.CHUNK_SIZE,  # file_name='xxx.mp4',
                 metadata={'filename': 'video.mp4', 'filetype': 'video/mp4'}
             )
@@ -31,16 +31,14 @@ class UploadFileMixin(object):
 class UploadVideoMixin(object):
     """Handle uploading a new video to the ArvanCloud API."""
 
-    def upload_video(self, filename, title, convert_mode, **kwargs):
-        TUS_ENDPOINT = 'https://napi.arvancloud.com/vod/2.0/channels/' + self.channel + '/videos'
-        HEADERS = {'Authorization': self.token}
+    def upload_video(self, filename, **kwargs):
+        upload_endpoint = 'https://napi.arvancloud.com/vod/2.0/channels/' + self.channel + '/videos'
+        header = {'Authorization': self.token}
         file_url = self.upload_file(filename)
         file_id = file_url[file_url.rfind('/') + 1:]
         data = kwargs['data'] if 'data' in kwargs else {}
-        data["title"] = title
         data["file_id"] = file_id
-        data["convert_mode"] = convert_mode
-        r = requests.post(url=TUS_ENDPOINT, headers=HEADERS, data=data)
+        r = requests.post(url=upload_endpoint, headers=header, data=data)
         return r
 
 
